@@ -2,15 +2,16 @@ const express = require('express')
 const morgan = require('morgan')
 const multer = require('multer')
 const path = require('path')
-const exphbs = require('express-handlebars')
+const { engine } = require('express-handlebars')
 
 // initializations
 const app = express()
+require('./database')
 
 // settings
-app.set('port', 3000)
+app.set('port', process.env.PORT || 3000)
 app.set('views', path.join(__dirname, 'views'))
-app.engine('.hbs', exphbs({
+app.engine('.hbs', engine({
 	defaultLayout: 'main', 
 	layoutsDir: path.join(app.get('views'), 'layouts'),
 	partialsDir: path.join(app.get('views'), 'partials'),
